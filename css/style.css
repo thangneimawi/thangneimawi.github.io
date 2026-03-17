@@ -1,0 +1,232 @@
+:root {
+    --gold: #b8926a;
+    --soft-white: #fafafa;
+    --dark-text: #2c2c2c;
+    --border: #e8e8e8;
+}
+
+body,
+html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--soft-white);
+    color: var(--dark-text);
+    overflow-x: hidden;
+    scroll-behavior: smooth;
+}
+
+/* --- 1. ENVELOPE OVERLAY --- */
+#invitation-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #1a1a1a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    transition: transform 1.2s cubic-bezier(0.7, 0, 0.3, 1);
+}
+
+.envelope-wrapper {
+    position: relative;
+    width: 340px;
+    height: 230px;
+    cursor: pointer;
+}
+
+.envelope-paper {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #efede5;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+}
+
+.top-flap {
+    position: absolute;
+    top: 0;
+    border-left: 170px solid transparent;
+    border-right: 170px solid transparent;
+    border-top: 120px solid #dcd7c9;
+    transform-origin: top;
+    transition: transform 0.6s ease;
+    z-index: 5;
+}
+
+.wax-seal {
+    position: absolute;
+    top: 95px;
+    left: 145px;
+    width: 50px;
+    height: 50px;
+    background: #8b1e1e;
+    border-radius: 50%;
+    z-index: 6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.2rem;
+}
+
+.inner-card {
+    position: absolute;
+    top: 5px;
+    left: 10px;
+    width: 320px;
+    height: 210px;
+    background: white;
+    z-index: 2;
+    transition: transform 0.9s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--border);
+}
+
+.envelope-wrapper.open .top-flap {
+    transform: rotateX(180deg);
+    z-index: 1;
+}
+
+.envelope-wrapper.open .inner-card {
+    transform: translateY(-160px);
+    z-index: 3;
+}
+
+.envelope-wrapper.open .wax-seal {
+    opacity: 0;
+    transform: scale(0);
+}
+
+/* --- 2. HERO SECTION --- */
+.hero {
+    height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.1)), url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1920&q=80');
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.hero-box {
+    text-align: center;
+    color: white;
+    padding: 40px;
+}
+
+.hero-box h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 5rem;
+    margin: 0;
+    font-weight: 400;
+    letter-spacing: 5px;
+}
+
+.hero-box p {
+    letter-spacing: 10px;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    margin-top: 20px;
+}
+
+/* --- 3. THE COUPLE (Professional Layout) --- */
+.section-padding {
+    padding: 120px 10%;
+}
+
+.couple-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.couple-img {
+    width: 100%;
+    height: 600px;
+    object-fit: cover;
+    border: 10px solid white;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.05);
+}
+
+.couple-text h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    color: var(--gold);
+}
+
+.couple-text p {
+    line-height: 2;
+    color: #666;
+    font-size: 1.1rem;
+}
+
+/* --- 4. PROGRAM / TIMELINE --- */
+.program-item {
+    display: flex;
+    border-bottom: 1px solid var(--border);
+    padding: 30px 0;
+}
+
+.time {
+    font-weight: 600;
+    width: 150px;
+    color: var(--gold);
+    letter-spacing: 2px;
+}
+
+.event {
+    text-align: left;
+}
+
+.event h4 {
+    margin: 0;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+}
+
+/* --- 5. GALLERY --- */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 15px;
+}
+
+.gallery img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    transition: 0.5s;
+}
+
+.gallery img:hover {
+    filter: brightness(0.8);
+}
+
+/* --- 6. MAP --- */
+.map-container {
+    width: 100%;
+    height: 450px;
+    border: 1px solid var(--border);
+    margin-top: 40px;
+}
+
+@media (max-width: 900px) {
+    .couple-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-box h1 {
+        font-size: 3rem;
+    }
+}
