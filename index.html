@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amoré Wedding Tokyo | ZAW & HSU</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100;300;400;500&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --white: #ffffff;
+            --black: #000000;
+            --off-white: #fcfcfc;
+            --border-color: #e0e0e0;
+            --wax-red: #8b1e1e;
+        }
+
+        body, html {
+            margin: 0; padding: 0;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            letter-spacing: 2px;
+            background-color: var(--off-white);
+            color: var(--black);
+            overflow: hidden; /* Prevent scroll until opened */
+        }
+
+        /* --- 1. THE ENVELOPE OVERLAY (Same as Perfected) --- */
+        #invitation-overlay {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
+                        url('https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            display: flex; justify-content: center; align-items: center;
+            z-index: 9999;
+            transition: opacity 0.6s ease-in-out, visibility 0.6s;
+        }
+        
+        .envelope-wrapper {
+            position: relative;
+            width: 320px; height: 210px;
+            cursor: pointer;
+        }
+        .envelope {
+            position: relative;
+            width: 100%; height: 100%;
+            background-color: #dcd7c9;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+        }
+        .card-inside {
+            position: absolute;
+            top: 5px; left: 10px;
+            width: 300px; height: 200px;
+            background: white;
+            z-index: 2;
+            transition: transform 0.7s cubic-bezier(0.2, 1, 0.3, 1);
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .card-inside h2 { font-weight: 400; font-size: 1.2rem; margin:0;}
+        .envelope::before {
+            content: ""; position: absolute; z-index: 4;
+            border-top: 105px solid transparent;
+            border-right: 160px solid #f0ede5;
+            border-bottom: 105px solid #f0ede5;
+            border-left: 160px solid #f0ede5;
+        }
+        .top-flap {
+            position: absolute; top: 0;
+            border-left: 160px solid transparent;
+            border-right: 160px solid transparent;
+            border-top: 110px solid #cfc9b8;
+            transform-origin: top;
+            transition: transform 0.4s ease-in-out;
+            z-index: 5;
+        }
+        .wax-seal {
+            position: absolute; top: 85px; left: 135px;
+            width: 50px; height: 50px;
+            background: var(--wax-red);
+            border-radius: 50%; z-index: 6;
+            display: flex; justify-content: center; align-items: center;
+            color: white; font-size: 0.7rem; font-weight: 400;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            transition: opacity 0.2s, transform 0.2s;
+        }
+        .envelope-wrapper.open .top-flap { transform: rotateX(180deg); z-index: 1; }
+        .envelope-wrapper.open .card-inside { transform: translateY(-130px); z-index: 3; }
+        .envelope-wrapper.open .wax-seal { opacity: 0; transform: scale(0); }
+
+        /* --- 2. EDITORIAL SITE SECTIONS --- */
+        #main-content {
+            opacity: 0;
+            transition: opacity 0.8s ease;
+        }
+        #main-content.visible { opacity: 1; }
+
+        section {
+            padding: 80px 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        /* Helper Classes for Layout */
+        .thin-line { border-bottom: 1px solid var(--black); width: 60px; margin: 20px auto; }
+        .small-title { text-transform: uppercase; font-size: 0.7rem; font-weight: 500; }
+        .large-text { font-size: 3rem; font-weight: 100; margin: 10px 0;}
+
+        /* --- HERO --- */
+        #hero {
+            height: 90vh;
+            display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            background-color: var(--white);
+        }
+        #hero h1 { font-weight: 100; font-size: 4rem; margin: 0; letter-spacing: 15px;}
+        #hero p { font-size: 0.8rem; letter-spacing: 5px; margin-top: 20px; color: #555;}
+
+        /* --- DETAILS SECTION --- */
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            text-align: left;
+            margin-top: 50px;
+        }
+        .details-grid .col { padding: 40px; }
+        .details-grid .col:first-child { border-right: 1px solid var(--border-color); }
+        .details-grid h3 { font-weight: 400; font-size: 1.5rem; letter-spacing: 4px; }
+        .details-grid p { line-height: 1.8; color: #555; font-size: 0.9rem;}
+
+        /* --- RSVP SECTION --- */
+        #rsvp { background-color: var(--black); color: var(--white); }
+        #rsvp .small-title { color: #888; }
+        #rsvp h2 { color: var(--white); }
+        
+        .rsvp-button {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 15px 50px;
+            border: 1px solid var(--white);
+            color: var(--white);
+            text-decoration: none;
+            transition: 0.3s;
+        }
+        .rsvp-button:hover {
+            background-color: var(--white);
+            color: var(--black);
+        }
+
+    </style>
+</head>
+<body>
+
+    <div id="invitation-overlay">
+        <div class="envelope-wrapper" id="envelope" onclick="startOpening()">
+            <div class="top-flap"></div>
+            <div class="wax-seal">Open</div>
+            <div class="envelope">
+                <div class="card-inside">
+                    <h2>ZAW & HSU</h2>
+                    <p style="font-size: 0.6rem; letter-spacing: 3px; color: #888;">TOKYO | 2024</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="main-content">
+        
+        <section id="hero">
+            <p class="small-title">The Wedding Day</p>
+            <h1>Zaw&Hsu</h1>
+            <p>20.10.2024 | Tokyo, Japan</p>
+        </section>
+
+        <section id="details">
+            <div class="container">
+                <p class="small-title">Our Story</p>
+                <div class="large-text">The Celebration</div>
+                <div class="thin-line"></div>
+                
+                <div class="details-grid">
+                    <div class="col">
+                        <h3>Grand Hyatt Tokyo</h3>
+                        <p>Join us at 2:00 PM for the main ceremony in the heart of Minato City. A modern venue reflecting the sophisticated energy of Tokyo, the perfect backdrop for our vows.</p>
+                    </div>
+                    <div class="col">
+                        <h3>The Schedule</h3>
+                        <p><strong>14:00 - 15:30</strong> Reception & Vows</p>
+                        <p><strong>15:30 - 18:00</strong> Cocktails & Canapés</p>
+                        <p><strong>18:00 - late</strong> The Celebration Party</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="timeline">
+            <div class="container">
+                <p class="small-title">Our Journey</p>
+                <div class="large-text">The Timeline</div>
+                <div class="thin-line"></div>
+                <p style="margin-top: 40px; color: #555;">How we arrived at this moment. Simple, precise, and documented.</p>
+                <img src="https://via.placeholder.com/800x400.png?text=Timeline+Placeholder+(e.g.,+Meeting+2019+to+Proposal+2023)" alt="Timeline" style="width: 100%; max-width: 800px; margin-top: 40px; border: 1px solid var(--border-color); padding: 5px;">
+            </div>
+        </section>
+
+        <section id="rsvp">
+            <div class="container">
+                <p class="small-title">The Response</p>
+                <div class="large-text">Confirm Attendance</div>
+                <div class="thin-line" style="border-color: #888;"></div>
+                <p style="color: #ccc;">We hope you will be there to celebrate with us. Please respond by September 1st, 2024.</p>
+                <a href="#" class="rsvp-button">RSVP Now</a>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        function startOpening() {
+            const envelope = document.getElementById('envelope');
+            const overlay = document.getElementById('invitation-overlay');
+            const content = document.getElementById('main-content');
+
+            envelope.classList.add('open'); // Trigger flap/slide
+
+            // Wait 1.2s for card animation peek, then snappy fade
+            setTimeout(() => {
+                overlay.style.opacity = '0';
+                overlay.style.visibility = 'hidden';
+                
+                content.classList.add('visible'); // Show home page
+                document.body.style.overflow = 'auto'; // Enable scroll
+            }, 1200); 
+        }
+    </script>
+</body>
+</html>
