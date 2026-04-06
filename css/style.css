@@ -177,30 +177,100 @@ section {
 }
 
 /* Hero */
-.hero {
-    height: 100vh;
+/* --- Mobile-First Design --- */
+.mobile-hero {
+    background-color: #f9f7f4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.hero-image-container {
+    width: 100%;
+    height: 60vh; /* Takes up 60% of the screen height */
+    overflow: hidden;
+    /* Creating a soft, organic curve at the bottom only */
+    border-radius: 0 0 50% 50% / 0 0 15% 15%;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.hero-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures the photo fills the space without stretching */
+    object-position: top; /* Keeps your faces in view */
+}
+
+.hero-text-card {
+    text-align: center;
+    padding: 30px 20px;
+    margin-top: -40px; /* Pulls text up to slightly overlap the photo */
+    background: white;
+    width: 85%;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+}
+
+.subtitle {
+    letter-spacing: 4px;
+    font-size: 0.75rem;
+    color: #a08c69;
+    margin-bottom: 10px;
+}
+
+.script-text {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.2rem;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.wedding-date {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.8rem;
+    font-weight: 500;
+    color: #4a4a4a;
+}
+
+/* --- Countdown Circles --- */
+.hero-countdown {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin: 25px 0;
+}
+
+.timer-circle {
+    background-color: #5d5d5d;
+    color: white;
+    width: 65px; /* Sized perfectly for mobile screens */
+    height: 65px;
+    border-radius: 50%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background:
-        url('../photo/MTH08651.jpg') center/cover fixed;
-    text-align: center;
 }
 
-.hero h1 {
+.timer-circle span {
+    font-size: 1.2rem;
+    font-weight: 600;
+    line-height: 1;
+}
+
+.timer-circle p {
     font-family: 'Great Vibes', cursive;
-    font-size: 5rem;
-    margin-bottom: 10px;
+    font-size: 0.8rem;
+    margin-top: 2px;
 }
 
-.hero p {
-    font-family: 'Montserrat', sans-serif;
-    letter-spacing: 5px;
+.venue-text {
+    font-size: 0.85rem;
+    color: #888;
+    letter-spacing: 1px;
     text-transform: uppercase;
-    font-size: 0.9rem;
 }
-
 /* Groom & Bride */
 .couple-container {
     display: flex;
